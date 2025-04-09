@@ -14,6 +14,7 @@ class App:
     self.MAX_SPEED = 120
     self.DISTANCE = 0
     self.NEXT_STATION = 0
+    self.BACKGROUND_X = 0
 #    self.SCREEN_VIEW = SCREEN_LIST(0)
     pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT)
     pyxel.load("my_resource.pyxres")
@@ -35,11 +36,14 @@ class App:
       self.TRAIN_SPEED = self.TRAIN_SPEED - ((self.TRAIN_POWER * -1 / 12) ** 2) - 0.007
     if self.TRAIN_SPEED < 0:
       self.TRAIN_SPEED = 0
+    self.BACKGROUND_X = (self.TRAIN_SPEED / 25) + self.BACKGROUND_X
 
   def draw(self):
     pyxel.cls(6)
     #背景
-    pyxel.blt(SCREEN_WIDTH - 200, SCREEN_HEIGHT / 2, 0, 0, 16, 15, 31, 0, None, 1.5)
+    def backImage():
+      pyxel.blt(self.BACKGROUND_X, SCREEN_HEIGHT / 2, 0, 0, 16, 15, 31, 0, None, 1.5)
+    backImage()
     #車両本体
     pyxel.blt(SCREEN_WIDTH - 192, SCREEN_HEIGHT / 2, 0, 8, 0, 216, 16, 0, None, 1)
     pyxel.rect(0, SCREEN_HEIGHT / 2 + 16, SCREEN_WIDTH, SCREEN_HEIGHT + 16, 0)
